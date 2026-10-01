@@ -1,8 +1,8 @@
 import { Project, EducationItem, ExperienceItem, SkillCategory } from '../types/portfolio';
 
 // Local high-fidelity visual assets
-import portraitImg from '../assets/images/dhiyo_executive_official_1790860842578.jpg';
-import winaImg from '../assets/images/wina_img_1173_replica_1790859312972.jpg';
+import portraitImg from '../assets/images/dhiyo_executive_official_1790860842578.png';
+import winaImg from '../assets/images/foto the wina.JPG';
 import hospiAiImg from '../assets/images/project_hospi_ai_1790857837016.jpg';
 import gadgetHematImg from '../assets/images/project_gadget_hemat_1790857849255.jpg';
 import tradingSimImg from '../assets/images/project_trading_sim_1790857870256.jpg';
