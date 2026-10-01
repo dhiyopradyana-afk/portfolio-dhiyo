@@ -1,45 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { experienceData, personalInfo } from '../data/portfolioData';
-import { Building2, MapPin, ExternalLink, Check, Instagram, Camera, RotateCcw, Maximize2, X } from 'lucide-react';
+import { Building2, MapPin, ExternalLink, Check, Instagram, Maximize2, X } from 'lucide-react';
 
 export const Experience: React.FC = () => {
   const [showWebsiteModal, setShowWebsiteModal] = useState(false);
   const [showPhotoLightbox, setShowPhotoLightbox] = useState(false);
   const [websiteUrlInput, setWebsiteUrlInput] = useState(experienceData.websiteUrl);
   const [copied, setCopied] = useState(false);
-  const [propertyPhoto, setPropertyPhoto] = useState<string>(() => {
-    return localStorage.getItem('wina_user_property_photo') || experienceData.image;
-  });
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(websiteUrlInput);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handlePropertyPhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        setPropertyPhoto(reader.result);
-        try {
-          localStorage.setItem('wina_user_property_photo', reader.result);
-        } catch {
-          // ignore storage limit
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleResetPropertyPhoto = () => {
-    setPropertyPhoto(experienceData.image);
-    try {
-      localStorage.removeItem('wina_user_property_photo');
-    } catch {}
   };
 
   return (
@@ -69,11 +41,11 @@ export const Experience: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowPhotoLightbox(true)}
-                className="w-full h-full text-left relative focus:outline-none"
+                className="w-full h-full text-left relative focus:outline-none cursor-pointer"
                 aria-label="View full photo of The Wina Guest House"
               >
                 <img
-                  src={propertyPhoto}
+                  src={experienceData.image}
                   alt="The Wina Guest House Canggu Bali"
                   className="w-full h-full object-cover object-center filter transition-transform duration-500 group-hover:scale-[1.02]"
                   referrerPolicy="no-referrer"
@@ -95,38 +67,8 @@ export const Experience: React.FC = () => {
                 <span>Canggu, Bali, Indonesia</span>
               </div>
 
-              {/* Photo Customizer Actions for Property */}
-              <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handlePropertyPhotoUpload}
-                  accept="image/*"
-                  className="hidden"
-                />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  title="Upload / Change with your camera photo of The Wina Guest House"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white text-xs font-medium transition-all shadow-md"
-                >
-                  <Camera className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Custom Photo</span>
-                </button>
-                {propertyPhoto !== experienceData.image && (
-                  <button
-                    type="button"
-                    onClick={handleResetPropertyPhoto}
-                    title="Reset to default photo"
-                    className="p-1.5 rounded-lg bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/20 text-zinc-300 hover:text-white text-xs transition-all shadow-md"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-
               {/* Status Badge */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-zinc-200 p-2.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10">
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-zinc-200 p-2.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 pointer-events-none">
                 <span className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   Active Operations
@@ -321,14 +263,6 @@ export const Experience: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition-colors"
-                >
-                  <Camera className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Upload / Ganti Foto</span>
-                </button>
-                <button
-                  type="button"
                   onClick={() => setShowPhotoLightbox(false)}
                   className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
                   aria-label="Close Lightbox"
@@ -341,7 +275,7 @@ export const Experience: React.FC = () => {
             {/* Uncropped Full Image Area */}
             <div className="flex-1 overflow-auto p-4 flex items-center justify-center bg-black/50 min-h-[350px]">
               <img
-                src={propertyPhoto}
+                src={experienceData.image}
                 alt="The Wina Guest House Canggu Bali (Full View)"
                 className="max-h-[68vh] w-auto object-contain rounded-xl shadow-2xl border border-white/10"
                 referrerPolicy="no-referrer"

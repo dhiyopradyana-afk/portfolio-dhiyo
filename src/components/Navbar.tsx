@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Camera } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
-interface NavbarProps {
-  onOpenPhotoModal: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ onOpenPhotoModal }) => {
+export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -58,15 +54,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPhotoModal }) => {
 
         {/* Zone 3: 1-2 primary actions */}
         <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={onOpenPhotoModal}
-            title="Customize or upload your own profile photo"
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors"
-          >
-            <Camera className="w-3.5 h-3.5 text-amber-400" />
-            <span>Profile Photo</span>
-          </button>
-
           <a
             href="#contact"
             className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-black bg-amber-400 rounded-lg hover:bg-amber-300 transition-colors shadow-sm whitespace-nowrap"
@@ -78,13 +65,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPhotoModal }) => {
 
         {/* Mobile menu button */}
         <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={onOpenPhotoModal}
-            className="p-2 text-zinc-300 hover:text-white bg-white/5 rounded-lg border border-white/10"
-            aria-label="Upload photo"
-          >
-            <Camera className="w-4 h-4 text-amber-400" />
-          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg text-zinc-300 hover:text-white hover:bg-white/10 focus:outline-none"

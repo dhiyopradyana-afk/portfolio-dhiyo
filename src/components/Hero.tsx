@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { personalInfo } from '../data/portfolioData';
-import { ArrowDown, ArrowUpRight, MapPin, Sparkles, Camera, Clock } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, MapPin, Sparkles, Clock } from 'lucide-react';
 
 interface HeroProps {
-  photo: string;
-  onOpenPhotoModal: () => void;
+  photo?: string;
 }
 
-export const Hero: React.FC<HeroProps> = ({ photo, onOpenPhotoModal }) => {
+export const Hero: React.FC<HeroProps> = ({ photo = personalInfo.defaultPortrait }) => {
   // Live Bali Time (WITA - UTC+8)
   const [baliTime, setBaliTime] = useState<string>('');
 
@@ -125,20 +124,10 @@ export const Hero: React.FC<HeroProps> = ({ photo, onOpenPhotoModal }) => {
                   <img
                     src={photo}
                     alt="I Nyoman Dhiyo Pradyana Putra"
-                    className="w-full h-full object-cover object-top filter brightness-[0.97] contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="w-full h-full object-cover object-top filter brightness-[0.98] contrast-[1.02] transition-transform duration-700 group-hover:scale-[1.02]"
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D11] via-transparent to-transparent opacity-80" />
-
-                  {/* Upload button overlay */}
-                  <button
-                    onClick={onOpenPhotoModal}
-                    className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 hover:bg-black/90 backdrop-blur-md border border-white/20 text-white text-xs font-medium transition-all shadow-md"
-                    title="Upload or change with your own portrait photo"
-                  >
-                    <Camera className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Upload Photo</span>
-                  </button>
 
                   {/* Bottom Overlay Label */}
                   <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10">
@@ -160,12 +149,7 @@ export const Hero: React.FC<HeroProps> = ({ photo, onOpenPhotoModal }) => {
               {/* Minimal caption below */}
               <div className="mt-3 flex items-center justify-between text-xs text-zinc-400 px-1">
                 <span>Personal Portfolio & Brand</span>
-                <button
-                  onClick={onOpenPhotoModal}
-                  className="text-amber-400 hover:underline flex items-center gap-1"
-                >
-                  <span>Replace Photo</span>
-                </button>
+                <span className="text-zinc-500 font-mono">Bali, ID</span>
               </div>
             </div>
           </div>
